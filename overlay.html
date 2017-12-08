@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" src="overlay.css"/>
+    <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $.ajax({
+            dataType: "json",
+            url: 'data.json',
+            //headers: {"TRN-Api-Key": window.GLOBAL_CONFIG.API_KEY},
+            success: function(data) {
+                console.log(data);
+                //console.log(data.stats);
+                result = {};
+                ['solo', 'squad'].forEach(function(mode, i, arr){
+                    j = jQuery.grep(data.stats, function(n, i) {
+                        return n.mode == mode;
+                    });
+                    console.log('j ' + mode, j);
+                    if (result[mode] == undefined) {
+                        result[mode] = {};
+                    }
+                    j.forEach(function(item, i, arr){
+                        ['KillDeathRatio', 'Wins', 'RoundsPlayed', 'Rating', 'Kills', 'Top10s'].forEach(function(type, i, arr){
+                            t = jQuery.grep(item.stats, function(n, i) {
+                                return n.field == type;
+                            });
+                            if (result[mode][type] == undefined) {
+                                result[mode][type] = 0.0;
+                            }
+                            v = parseFloat(t[0].value);
+
+                            if ($.inArray(type, ['KillDeathRatio', 'Rating'])) {
+                                // save max value
+                                if (result[mode][type] < v) {
+                                    result[mode][type] = v;
+                                };
+                            }
+                            if ($.inArray(type, ['Wins', 'RoundsPlayed', 'Kills', 'Top10s'])) {
+                                // save sum value
+                                result[mode][type] = result[mode][type] + v;
+                            }
+
+                            console.log(mode, type, v);
+                        });
+                    });
+                });
+                console.log(result);
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
