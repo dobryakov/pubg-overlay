@@ -29,8 +29,12 @@ table, tr, td {
     width: 50%;
 }
 
-#squad {
+#solo {
     text-align: right;
+}
+
+#squad {
+    text-align: left;
 }
 
 .Value {
