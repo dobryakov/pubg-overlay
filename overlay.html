@@ -2,13 +2,36 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" src="overlay.css"/>
+    <link rel="stylesheet" href="overlay.css"/>
     <script
             src="https://code.jquery.com/jquery-1.12.4.min.js"
             integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
             crossorigin="anonymous"></script>
 </head>
 <body>
+
+<table id="t">
+    <tr>
+        <td id="solo">
+            SOLO
+            K/D <span class="KillDeathRatio Value"></span>
+            Rounds <span class="RoundsPlayed Value"></span>
+            Wins <span class="Wins Value"></span>
+            Kills <span class="Kills Value"></span>
+            Top10s <span class="Top10s Value"></span>
+            Rating <span class="Rating Value"></span>
+        </td>
+        <td id="squad">
+            SQUAD
+            K/D <span class="KillDeathRatio Value"></span>
+            Rounds <span class="RoundsPlayed Value"></span>
+            Wins <span class="Wins Value"></span>
+            Kills <span class="Kills Value"></span>
+            Top10s <span class="Top10s Value"></span>
+            Rating <span class="Rating Value"></span>
+        </td>
+    </tr>
+</table>
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -55,8 +78,17 @@
                     });
                 });
                 console.log(result);
+                update(result);
             }
         });
+
+    var update = function(data) {
+        ['solo', 'squad'].forEach(function(mode, i, arr){
+            ['KillDeathRatio', 'Wins', 'RoundsPlayed', 'Rating', 'Kills', 'Top10s'].forEach(function(type, i, arr){
+                $('#' + mode + ' .' + type).html(data[mode][type]);
+            });
+        });
+    }
 
     });
 </script>

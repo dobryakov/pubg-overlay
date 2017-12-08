@@ -2,3 +2,37 @@ body {
     padding: 0;
     margin: 0;
 }
+
+table, tr, td {
+    cellspacing: 0;
+    cellpadding: 0;
+    margin: 0;
+    padding: 0;
+}
+
+#t {
+    background-image: url('texture.jpg');
+    background-color: #333333;
+    width: 100%;
+}
+
+#t td {
+    font-family: Georgia, "OCR A Std", sans-serif;
+    font-weight: normal;
+    font-size: 13px;
+    color: #eeeeee;
+    padding: 5px;
+}
+
+#solo, #squad {
+    width: 50%;
+}
+
+#squad {
+    text-align: right;
+}
+
+.Value {
+    color: darkorange;
+    font-weight: bold;
+}
